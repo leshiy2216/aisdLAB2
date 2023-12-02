@@ -47,6 +47,25 @@ public:
         }
     }
 
+    LinkedList& operator=(const LinkedList& other)
+    {
+        if (this != &other)
+        {
+            while (head != nullptr)
+            {
+                pop_head();
+            }
+
+            Node<T>* otherCurrent = other.head;
+            while (otherCurrent != nullptr)
+            {
+                push_tail(otherCurrent->data);
+                otherCurrent = otherCurrent->next;
+            }
+        }
+        return *this;
+    }
+
     void push_tail(const T& value)
     {
         Node<T>* newNode = new Node<T>(value);
@@ -71,6 +90,23 @@ public:
         while (otherCurrent != nullptr)
         {
             push_tail(otherCurrent->data);
+            otherCurrent = otherCurrent->next;
+        }
+    }
+
+    void push_head(const T& value)
+    {
+        Node<T>* newNode = new Node<T>(value);
+        newNode->next = head;
+        head = newNode;
+    }
+
+    void push_head(const LinkedList& other)
+    {
+        Node<T>* otherCurrent = other.head;
+        while (otherCurrent != nullptr)
+        {
+            push_head(otherCurrent->data);
             otherCurrent = otherCurrent->next;
         }
     }
