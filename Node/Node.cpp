@@ -111,6 +111,63 @@ public:
         }
     }
 
+    void pop_head()
+    {
+        if (head != nullptr)
+        {
+            Node<T>* temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
+
+    void pop_tail()
+    {
+        if (head != nullptr)
+        {
+            if (head->next == nullptr)
+            {
+                delete head;
+                head = nullptr;
+            }
+            else
+            {
+                Node<T>* current = head;
+                while (current->next->next != nullptr)
+                {
+                    current = current->next;
+                }
+                delete current->next;
+                current->next = nullptr;
+            }
+        }
+    }
+
+    void delete_node(const T& value)
+    {
+        while (head != nullptr && head->data == value)
+        {
+            pop_head();
+        }
+
+        if (head != nullptr)
+        {
+            Node<T>* current = head;
+            while (current->next != nullptr)
+            {
+                if (current->next->data == value)
+                {
+                    Node<T>* temp = current->next;
+                    current->next = current->next->next;
+                    delete temp;
+                }
+                else
+                {
+                    current = current->next;
+                }
+            }
+        }
+    }
 };
 
 int main()
