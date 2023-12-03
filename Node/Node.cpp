@@ -2,6 +2,27 @@
 #include <cstdlib>
 
 
+struct Student {
+    std::string lastName;
+    std::string firstName;
+    int course;
+    float average;
+
+    Student(const std::string& last, const std::string& first, int crs, float avg)
+        : lastName(last), firstName(first), course(crs), average(avg) {}
+
+    friend std::ostream& operator<<(std::ostream& os, const Student& student) {
+        os << "Student: " << student.lastName << student.firstName << ", Course: " << student.course << ", Average: " << student.average;
+        return os;
+    }
+
+    bool operator==(const Student& other) const
+    {
+        return lastName == other.lastName && firstName == other.firstName && course == other.course && average == other.average;
+    }
+};
+
+
 template <typename T>
 struct Node // узел
 {
@@ -203,6 +224,32 @@ public:
         }
 
         return current->data;
+    }
+
+    int countStudents() const
+    {
+        int count = 0;
+        Node<T>* current = head;
+        while (current != nullptr) {
+            if (current->data.course >= 4 && current->data.average > 4.5)
+            {
+                count++;
+            }
+            current = current->next;
+        }
+        return count;
+    }
+
+    void print() const
+    {
+        Node<T>* current = head;
+        while (current != nullptr)
+        {
+            std::cout << current->data << " ";
+            current = current->next;
+            std::cout << std::endl;
+        }
+        std::cout << std::endl;
     }
 };
 
