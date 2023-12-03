@@ -168,6 +168,42 @@ public:
             }
         }
     }
+
+    const T& operator[](int index) const
+    {
+        Node<T>* current = head;
+        int i = 0;
+        while (current != nullptr && i < index)
+        {
+            current = current->next;
+            ++i;
+        }
+
+        if (current == nullptr)
+        {
+            throw std::out_of_range("Index out of range");
+        }
+
+        return current->data;
+    }
+
+    T& operator[](int index)
+    {
+        Node<T>* current = head;
+        int i = 0;
+        while (current != nullptr && i < index)
+        {
+            current = current->next;
+            ++i;
+        }
+
+        if (current == nullptr)
+        {
+            throw std::out_of_range("Index out of range");
+        }
+
+        return current->data;
+    }
 };
 
 int main()
