@@ -115,6 +115,36 @@ public:
         }
     }
 
+    void push_head(const T& value)
+    {
+        Node<T>* newNode = new Node<T>(value);
+        newNode->next = head;
+        head = newNode;
+    }
+
+    bool is_empty() const
+    {
+        return head == nullptr;
+    }
+
+    void push_head(const LinkedList& other)
+    {
+        Node<T>* otherCurrent = other.head;
+        LinkedList<T> temp;
+
+        while (otherCurrent != nullptr)
+        {
+            temp.push_head(otherCurrent->data);
+            otherCurrent = otherCurrent->next;
+        }
+
+        while (!temp.is_empty())
+        {
+            push_head(temp[0]);
+            temp.pop_head();
+        }
+    }
+
     void pop_head()
     {
         if (head != nullptr)
@@ -238,8 +268,8 @@ public:
 
 int main()
 {
+    /*
     LinkedList<Student> studentList;
-    LinkedList<Student> studentList2;
 
     studentList.push_tail(Student("Andreev", "Daniil", 3, 4.8));
     studentList.push_tail(Student("Danilov", "Petr", 4, 4.8));
@@ -250,31 +280,32 @@ int main()
     std::cout << std::endl;
     studentList.print();
     std::cout << "The number of students who meet the requirements: " << count << std::endl;
-
     count = 0;
-
     studentList.pop_tail();
     studentList.push_tail(Student("Fedorov", "Artem", 1, 3.9));
     studentList.pop_head();
     studentList.push_head(Student("Artemov", "Vladimir", 5, 3.1));
-    std::cout << std::endl;
-
-    Student a = Student("Sidorov", "Andrey", 5, 4.6);
-    Student b = Student("Sidorov", "Arkadiy", 4, 4.9);
-    Student c = Student("Sidorov", "Arseniy", 1, 4.5);
-    studentList2.push_tail(a);
-    studentList2.push_tail(b);
-    studentList2.push_tail(c);
-    studentList2.print();
-    std::cout << std::endl;
-
-    studentList.push_head(studentList2);
     count = studentList.countStudents();
+    std::cout << std::endl;
     studentList.print();
     std::cout << "The number of students who meet the requirements: " << count << std::endl;
+    */
+    LinkedList<Student> studentList;
+    LinkedList<Student> studentList2;
 
-    studentList2.delete_node(c);
-    studentList2.print();
+    studentList.push_tail(Student("Andreev", "Daniil", 3, 4.8));
+    studentList.push_tail(Student("Danilov", "Petr", 4, 4.8));
+    studentList.push_tail(Student("Petrov", "Maksim", 5, 2.4));
+    studentList.push_tail(Student("Maksimov", "Alexander", 2, 2.1));
+    studentList.push_tail(Student("Alexandrov", "Fedor", 4, 4.7));
+
+    studentList.push_tail(Student("Abb", "Ddd", 3, 4.8));
+    studentList.push_tail(Student("BB", "BB", 4, 4.8));
+    studentList.push_tail(Student("CC", "CC", 5, 2.4));
+
+    studentList.push_head(studentList2);
+
+    studentList.print();
 
     return 0;
 }
